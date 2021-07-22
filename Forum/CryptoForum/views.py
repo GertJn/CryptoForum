@@ -12,7 +12,7 @@ def home(request):
 
     context = {'forums': forums,
                'count': count,
-               'discussions': discussions}
+               'comments': comments}
     return render(request, 'home.html', context)
 
 
@@ -35,5 +35,5 @@ def addInComments(request):
             form.save()
             return redirect('/')
     context = {'form': form}
-    return render(request, 'addInDiscussion.html', context)
+    return render(request, 'addInComments.html', context)
 
