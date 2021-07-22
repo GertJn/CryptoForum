@@ -1,0 +1,7 @@
+<!--CryptoForum/templates/users/dashboard.html-->
+
+{% extends 'home.html' %}
+
+{% block greeting %}
+<p style="font-size: 20px">Hello, {{ user.username|default:'Guest' }}!</p>
+{% endblock %}

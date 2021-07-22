@@ -13,6 +13,8 @@
     </style>
 </head>
 <body>
+    {% block greeting %}
+    {% endblock %}
         <h2 class="jumbotron">
             Currently active forums: {{count}}
             <form method="POST" action="{% url 'addInForum' %}">
