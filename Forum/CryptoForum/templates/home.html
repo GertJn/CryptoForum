@@ -14,6 +14,7 @@
 </head>
 <body>
     {% block greeting %}
+    <p style="font-size: 20px">Hello, {{ user.username|default:'Guest' }}!</p>
     {% endblock %}
         <h2 class="jumbotron">
             Currently active forums: {{count}}

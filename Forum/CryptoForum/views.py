@@ -15,9 +15,6 @@ def home(request):
                'comments': comments}
     return render(request, 'home.html', context)
 
-def dashboard(request):
-    return render(request, 'users/dashboard.html')
-
 def addInForum(request):
     form = CreateInForum()
     if request.method == 'POST':
