@@ -16,15 +16,17 @@ def home(request):
     return render(request, 'home.html', context)
 
 def addInForum(request):
-    form = CreateInForum()
-    if request.method == 'POST':
-        form = CreateInForum(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    context = {'form': form}
-    return render(request, 'addInForum.html', context)
-
+    if request.user.is_authenticated:
+        form = CreateInForum()
+        if request.method == 'POST':
+            form = CreateInForum(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+        context = {'form': form}
+        return render(request, 'addInForum.html', context)
+    else:
+        return redirect('/accounts/login')
 
 def addInComments(request):
     form = CreateInComments()
