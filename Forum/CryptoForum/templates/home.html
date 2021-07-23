@@ -10,19 +10,34 @@
             border: 4px solid black;
             margin: 0 auto;
         }
+        .comment{
+            border: 1px solid green;
+            margin: 0 auto;
+        }
+        .login{
+            font-size: 15px;
+            padding-top: 0px;
+        }
     </style>
 </head>
 <body>
-    {% block greeting %}
-    <p style="font-size: 20px">Hello, {{ user.username|default:'Guest' }}!</p>
-    {% endblock %}
-        <h2 class="jumbotron">
+        <h3 class="jumbotron">
+            {% block greeting %}
+                <p style="font-size: 20px">Hello, {{ user.username|default:'Guest' }}!</p>
+                    <div>
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-success" style="padding:2px; margin: 100px;" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                     <a class="btn btn-success" style="padding:2px; margin: 10px;" href="{% url 'login' %}">Login</a>
+                     {% endif %}
+                    </div>
+                    {% endblock %}
             Currently active forums: {{count}}
             <form method="POST" action="{% url 'addInForum' %}">
                 {% csrf_token %}
             <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Create a post</button>
             </form>
-        </h2>
+        </h3>
             <div class="card-columns" style="padding: 10px; margin: 20px;"></div>
 
 
@@ -42,7 +57,9 @@
                             {%for comments in comments%}
                             {%for objs in comments%}
                             {% if objs.forum == forum %}
-                               {{objs.comments}}
+                                    <div class="comment">
+                                        {{objs.discuss}}
+                                    </div>
                                <br>
                             {% endif %}
                             {%endfor%}
