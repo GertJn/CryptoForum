@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" 0>
     <style>
         .box{
-            border: 4px solid black;
+            border: 4px solid #212121;
             margin: 0 auto;
         }
         .comment{
@@ -16,50 +16,68 @@
         }
         .login{
             font-size: 15px;
-            padding-top: 0px;
+            margin: 0 auto;
+        }
+        .card-body{
+            border: 1px solid green;
+            margin: 0 auto;
+            margin-bottom: 15px;
+        }
+        .forum-text{
+            font-size: 18px;
+        }
+        .counter{
+            color: #fff;
+            width: fit-content;
+            background: none;
+            padding: 10px;
+            margin: 0px;
+            position: absolute;
+        }
+        .header{
+            background-color: #212121;
         }
     </style>
 </head>
 <body>
-        <h3 class="jumbotron">
+    <div class="header">
+        <h3 class="counter">Currently active forums: {{count}}</h3>
             {% block greeting %}
-                <p style="font-size: 20px">Hello, {{ user.username|default:'Guest' }}!</p>
-                    <div>
+                    <div style="float: right;">
+                        <p style="font-size: 20px; width: fit-content; color: #fff; float: left; padding: 12px;">Hello, {{ user.username|default:'Guest' }}!</p>
                         {% if user.is_authenticated %}
                         <a class="btn btn-success" style="padding:2px; margin: 10px;" href="{% url 'logout' %}">Logout</a>
                         {% else %}
-                        <a class="btn btn-success" style="padding:2px; margin: 10px;" href="{% url 'login' %}">Login</a>
-                        <a class="btn btn-success" style="padding:2px; margin: 10px;" href="{% url 'register' %}">Register</a>
+                        <a class="btn btn-success" style="padding:4px; margin: 10px;" href="{% url 'login' %}">Login</a>
+                        <a class="btn btn-success" style="padding:4px; margin: 10px;" href="{% url 'register' %}">Register</a>
                         {% endif %}
                     </div>
                     {% endblock %}
-            Currently active forums: {{count}}
             <form method="POST" action="{% url 'addInForum' %}">
                 {% csrf_token %}
-            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Create a post</button>
+            <button class="btn btn-success" style="width:fit-content; padding: 5px; margin:10px; margin-top: 50px;">Create a post</button>
             </form>
-        </h3>
             <div class="card-columns" style="padding: 10px; margin: 20px;"></div>
-
+    </div>
 
             {%for forum in forums %}
 
-                <div class="card box container">
+                <div class="card box container" style="height: fit-content">
                     <br>
                     <h5 class="card-title"></h5>
                         <a href='{{forum.link}}'><h3>{{forum.topic}}</h3></a>
                         <div class="card-body container">
-                                <p>{{forum.description}}</p>
+                                <p class="forum-text">{{forum.description}}</p>
                             <hr>
-                            <p> By: {{forum.name}}</p>
-                            <p> Date created: {{forum.date_created}}</p>
+                            <p style="font-size: 12px;"> By: {{forum.name}}</p>
+                            <p style="font-size: 12px;"> Date created: {{forum.date_created}}</p>
                             <hr>
                             <h4>Comments</h4>
                             {%for comments in comments%}
                             {%for objs in comments%}
                             {% if objs.forum == forum %}
                                     <div class="comment">
-                                        {{objs.discuss}}
+                                        <p style="font-size: 14px;">{{objs.discuss}}</p>
                                     </div>
                                <br>
                             {% endif %}
