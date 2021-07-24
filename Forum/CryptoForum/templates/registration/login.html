@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CryptoForum</title>
+    <style>
+        p {
+        color: #fff;
+        }
+        .login-button{
+        margin: 10px;
+        color: #fff;
+        background-color: #28a745;
+        border-radius: .25rem;
+        border-color: #28a745;
+        border: transparent;
+        }
+    </style>
+</head>
 {% extends 'home.html' %}
 
 {% block greeting %}
@@ -6,7 +26,7 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Login">
+    <input class="login-button"type="submit" value="Login">
 </form>
 
 <a href="{% url 'home' %}">Back to forum</a>
